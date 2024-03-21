@@ -25,7 +25,8 @@ class HomeScreen extends StatelessWidget {
             icon: Icon(Icons.delete_forever),
             color: Colors.white,
             onPressed: () {
-              Provider.of<ScanListProvider>(context, listen: false).borrarTodos();
+              Provider.of<ScanListProvider>(context, listen: false)
+                  .borrarTodos();
             },
           )
         ],
@@ -45,10 +46,11 @@ class _HomeScreenBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final uiProvider = Provider.of<UIProvider>(context);
-    
+
     final currentIndex = uiProvider.selectedMenuOpt;
 
-    final scanListProvider = Provider.of<ScanListProvider>(context, listen: false);
+    final scanListProvider =
+        Provider.of<ScanListProvider>(context, listen: false);
 
     switch (currentIndex) {
       case 0:

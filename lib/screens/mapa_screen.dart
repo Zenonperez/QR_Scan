@@ -20,94 +20,94 @@ class _MapaScreenState extends State<MapaScreen> {
   Set<Marker> markers = new Set<Marker>();
 
 //Metodo _onLongPress que al pulsar mucho tiempo pondra un marcador en la ubicacion que pulsemos mucho tiempo.
-void _onLongPress(LatLng latLng){
-  setState(() {
-    
-    markers.clear();
-    markers.add(
-      Marker(
-        //Para que el id sea unico se usan sus puntos localizadores como id.
-        markerId: MarkerId('marker_$latLng'),
-        position: latLng),
-    );
-  });
-
-}  
+  void _onLongPress(LatLng latLng) {
+    setState(() {
+      markers.clear();
+      markers.add(
+        Marker(
+            //Para que el id sea unico se usan sus puntos localizadores como id.
+            markerId: MarkerId('marker_$latLng'),
+            position: latLng),
+      );
+    });
+  }
 
 //Metodo para crear el controlador del mapa
-void _mapaCreado(GoogleMapController controller){
-  _controller.complete(controller);
-}
+  void _mapaCreado(GoogleMapController controller) {
+    _controller.complete(controller);
+  }
 
   @override
   Widget build(BuildContext context) {
     //Se establece el punto de geolocalizacion del scanmodel en el mapa
-    final ScanModel scan = ModalRoute.of(context)!.settings.arguments as ScanModel;
-    final CameraPosition _puntinici = CameraPosition(target: scan.getLatLng(),
-    zoom: 17);
+    final ScanModel scan =
+        ModalRoute.of(context)!.settings.arguments as ScanModel;
+    final CameraPosition _puntinici =
+        CameraPosition(target: scan.getLatLng(), zoom: 17);
 
     //Se agrega un marker azul que significa que es el punto inicial en el que hemos entrado
-    markers.add(new Marker(markerId: MarkerId('id1'), position: scan.getLatLng(), icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue)));
+    markers.add(new Marker(
+        markerId: MarkerId('id1'),
+        position: scan.getLatLng(),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue)));
 
-  //Metodo que inicia el estado del tipo de mapa como normal.
+    //Metodo que inicia el estado del tipo de mapa como normal.
     @override
-  void initState() {
-    super.initState();
-    _mapaActual = MapType.normal; 
-  }
+    void initState() {
+      super.initState();
+      _mapaActual = MapType.normal;
+    }
 
-  //Metodo que cambia el tipo de mapa de normal a hibrido y viceversa.
-    void _cambiarTipoDeMapa(){
+    //Metodo que cambia el tipo de mapa de normal a hibrido y viceversa.
+    void _cambiarTipoDeMapa() {
       setState(() {
-        _mapaActual = _mapaActual == MapType.normal ? MapType.hybrid : MapType.normal;
+        _mapaActual =
+            _mapaActual == MapType.normal ? MapType.hybrid : MapType.normal;
       });
     }
-  
+
     //Estructura de la pantalla del mapa.
     return Scaffold(
       //Agregamos un Appbar al mapa
-      appBar: AppBar(  
-      backgroundColor: Colors.deepPurple,
-        title: Text('Google Maps', style: TextStyle(color: Colors.white)),
-        actions: [
-          //Boton que al pulsarlo devuelva al de la geolocalizacion que selecionamos incialmente para entrar al mapa, donde esta el puntero azul.
-          IconButton(
-            icon: Icon(Icons.location_pin),
-            color: Colors.white,
-            onPressed:() async { 
-              final GoogleMapController controller = await _controller.future;
-              controller.animateCamera(CameraUpdate.newCameraPosition(_puntinici));
-              }
-              ),
-        ]
-      ),
+      appBar: AppBar(
+          backgroundColor: Colors.deepPurple,
+          title: Text('Google Maps', style: TextStyle(color: Colors.white)),
+          actions: [
+            //Boton que al pulsarlo devuelva al de la geolocalizacion que selecionamos incialmente para entrar al mapa, donde esta el puntero azul.
+            IconButton(
+                icon: Icon(Icons.location_pin),
+                color: Colors.white,
+                onPressed: () async {
+                  final GoogleMapController controller =
+                      await _controller.future;
+                  controller.animateCamera(
+                      CameraUpdate.newCameraPosition(_puntinici));
+                }),
+          ]),
       //Aqui se manejan la configuracion y elementos que gestionara el googleMap
-      body: Stack(
-        children: [
+      body: Stack(children: [
         GoogleMap(
-        myLocationEnabled: false,
-        //Al hacer un long press pondra un marcador donde hemos realizado el longpress
-        onLongPress: _onLongPress,
-        mapType: _mapaActual,
-        //Cargara los markers que hay
-        markers: markers,
-        initialCameraPosition: _puntinici,
-        onMapCreated: _mapaCreado,
+          myLocationEnabled: false,
+          //Al hacer un long press pondra un marcador donde hemos realizado el longpress
+          onLongPress: _onLongPress,
+          mapType: _mapaActual,
+          //Cargara los markers que hay
+          markers: markers,
+          initialCameraPosition: _puntinici,
+          onMapCreated: _mapaCreado,
         ),
-        //Ponemos el boton para cambiar el tipo de mapa a normal o a hibrido. 
+        //Ponemos el boton para cambiar el tipo de mapa a normal o a hibrido.
         Positioned(
           bottom: 16,
           left: 16,
           child: FloatingActionButton(
-            onPressed: ()  {              
+            onPressed: () {
               _cambiarTipoDeMapa();
             },
             child: Icon(Icons.map),
-            ),
+          ),
         ),
-       ]
-      ),
-      
+      ]),
     );
   }
 }

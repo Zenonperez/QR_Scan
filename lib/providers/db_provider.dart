@@ -79,6 +79,7 @@ class DBProvider {
     }
     return null;
   }
+
 //Setencia getter que selecciona una lista de tipos determinada
   Future<List<ScanModel>> getScanByTipus(String tipus) async {
     final db = await database;
@@ -87,6 +88,7 @@ class DBProvider {
 
     return res.isNotEmpty ? res.map((e) => ScanModel.fromMap(e)).toList() : [];
   }
+
 //Sentencia que actualiza un scanmodel existente guardado en la base de datos introduciendo una nuevo.
   Future<int> updateScan(ScanModel nouScan) async {
     final db = await database;
@@ -95,6 +97,7 @@ class DBProvider {
 
     return res;
   }
+
 //Sentencia que elimina todos los scanmodels guardados en la base de datos.
   Future<int> deleteAllScans() async {
     final db = await database;
@@ -103,6 +106,7 @@ class DBProvider {
 ''');
     return res;
   }
+
 //Sentencia que elimina un scanmodel determinado por su id
   Future<int> deleteScan(int id) async {
     final db = await database;

@@ -8,6 +8,6 @@ class MapasScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-          return ScanTiles(tipus: 'geo');
+    return ScanTiles(tipus: 'geo');
   }
 }

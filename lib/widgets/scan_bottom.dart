@@ -18,13 +18,13 @@ class ScanButton extends StatelessWidget {
         Icons.filter_center_focus,
       ),
       onPressed: () async {
-        
         //Esto abrira la camara del dispositivo para escanear un qr.
         String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-          '#3D8BEF', 'Cancelar', false, ScanMode.QR);
+            '#3D8BEF', 'Cancelar', false, ScanMode.QR);
         print(barcodeScanRes);
         //Al escaneralo se guardara como un nuevo scanmodel.
-        final scanListProvider = Provider.of<ScanListProvider>(context, listen:false);
+        final scanListProvider =
+            Provider.of<ScanListProvider>(context, listen: false);
         ScanModel nouScan = ScanModel(valor: barcodeScanRes);
         scanListProvider.nouScan(barcodeScanRes);
         //Y se abrira.

@@ -5,17 +5,13 @@ import 'package:qr_scan/providers/ui_provider.dart';
 import 'package:qr_scan/screens/home_screen.dart';
 import 'package:qr_scan/screens/mapa_screen.dart';
 
-
 //Clase ejecutable que dara inicio a la aplicacion y nos llevara a la pantalla principal de esta.
 
 //Creamos los providers para que funcionen aqui en el main con multiprovider.
-void main() => runApp(MultiProvider(
-  providers: [
-    ChangeNotifierProvider(create: (_) => UIProvider()),
-    ChangeNotifierProvider(create: (_) => ScanListProvider())
-  ],
-  
-  child: MyApp()));
+void main() => runApp(MultiProvider(providers: [
+      ChangeNotifierProvider(create: (_) => UIProvider()),
+      ChangeNotifierProvider(create: (_) => ScanListProvider())
+    ], child: MyApp()));
 
 class MyApp extends StatelessWidget {
   @override

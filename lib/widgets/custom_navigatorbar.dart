@@ -15,7 +15,7 @@ class CustomNavigationBar extends StatelessWidget {
 
     //Aqui se encuentra el manejo de los botones que son los dos iconos mencionados antes
     return BottomNavigationBar(
-        onTap:(int i) => uiProvider.selectedMenuOpt = i,
+        onTap: (int i) => uiProvider.selectedMenuOpt = i,
         elevation: 0,
         currentIndex: currentIndex,
         items: const <BottomNavigationBarItem>[
